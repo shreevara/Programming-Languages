@@ -1,3 +1,5 @@
+import re
+
 def get_val(lookahead,array):
     if lookahead == '{':
         lookahead = match('{')
@@ -18,6 +20,7 @@ def get_initializers(lookahead,array):
         pass
     else:
         raise SyntaxError("Expecting '}' or ']' but got %s" % lookahead)
+ 
     return lookahead
 
 def get_initializer(lookahead,array):
@@ -27,6 +30,8 @@ def get_initializer(lookahead,array):
         if lookahead == '...':
             lookahead = match('...')
             lookahead = get_INT_bb(lookahead)
+        if (lookahead != ']'):
+            raise SyntaxError("Expecting '}' but got %s" % lookahead)
         lookahead = match(']')
         lookahead = match('=')
         lookahead = get_val(lookahead ,array)
@@ -386,21 +391,27 @@ flagf = False
 ip = input()
 array=[]
 temp=[]
-input=[]
+input=""
 m=0 
-
+blcount=brcount=0
 
 while(m<len(ip)):
     if(ip[m].isspace()):
         m+=1
     else:
-        input.append(ip[m])
+        input+=ip[m]
         m+=1
 
-
 while(k<len(input)):
-
-    if(input[k]=='{' or input[k]=='}' or input[k]=='[' or input[k]==']' or input[k]=='='):
+    if(input[k]=='{'):
+        array.append(input[k])
+        blcount+=1
+        k+=1
+    elif(input[k]=='}'):
+        array.append(input[k])
+        brcount+=1
+        k+=1
+    elif(input[k]=='[' or input[k]==']' or input[k]=='='):
         array.append(input[k])
         k+=1
     elif(input[k]==','):
@@ -420,19 +431,35 @@ while(k<len(input)):
             array.append('.'*len(temp))
             temp=[]
             
-    elif(input[k]=='1' or input[k]=='2' or input[k]=='3' or input[k]=='4' or input[k]=='5' or input[k]=='6' or input[k]=='7' or input[k]=='8' or input[k]=='9' or input[k]=='0' ):
-        while(input[k]=='1' or input[k]=='2' or input[k]=='3' or input[k]=='4' or input[k]=='5' or input[k]=='6' or input[k]=='7' or input[k]=='8' or input[k]=='9' or input[k]=='0'):
+    elif(re.match("\d+",input[k]) ):
+        while( re.match("\d+",input[k])  ):
             temp.append(int(input[k]))
             k+=1
+            if(k<len(input)):
+                continue
+            else:
+                break
+
         n=len(temp)
         number = 0
         for j in range(0,n):
             number = number + temp[j]*(int(10)**(n-1-j))
         array.append(number)
         temp=[]
-        
 
-lookahead= array[i]
-get_val(lookahead,array)
+if(blcount!=brcount):
+    raise SyntaxError("expecting 'EOF' but got '}'")
 
-print(barray)
+if(len(array)==1 and ( array[0]!='{' or  array[0]!='}'  or array[0]!='='  or array[0]!=',' ) ):
+    print(array[0])
+
+elif(len(array)>1):
+    if(array[0]=='{' and array[1]=='}'):
+        print(barray)
+    else:
+        lookahead= array[i]
+        get_val(lookahead,array)
+        print(barray)
+
+      
+
