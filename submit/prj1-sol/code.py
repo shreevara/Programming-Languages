@@ -19,7 +19,7 @@ def get_initializers(lookahead,array):
     elif lookahead in [']', '}']:
         pass
     else:
-        raise SyntaxError("Expecting '}' or ']' but got %s" % lookahead)
+        raise Exception("Expecting '}' or ']' but got %s" % lookahead)
  
     return lookahead
 
@@ -31,13 +31,13 @@ def get_initializer(lookahead,array):
             lookahead = match('...')
             lookahead = get_INT_bb(lookahead)
         if (lookahead != ']'):
-            raise SyntaxError("Expecting '}' but got %s" % lookahead)
+            raise Exception("Expecting '}' but got %s" % lookahead)
         lookahead = match(']')
         lookahead = match('=')
         lookahead = get_val(lookahead ,array)
         
     elif lookahead in [',']:
-        raise SyntaxError("Expecting '}' but got %s" % lookahead)
+        raise Exception("Expecting '}' but got %s" % lookahead)
     else:
         lookahead = get_val(lookahead,array)
     return lookahead
@@ -177,6 +177,7 @@ def append_last():
     flagf=False
     count=0
 
+
 def newcase_int_end(lookahead):
     global carray,barray
     global flagf,l,r,i,count
@@ -220,6 +221,7 @@ def append(lookahead):
                 carray.append(int("0"))
             for _ in range(rr-ll+1):
                 carray.append(int(lookahead))
+
 
 def newcase_int(lookahead):
     global carray,new,new_array
@@ -408,9 +410,19 @@ while(k<len(input)):
         blcount+=1
         k+=1
     elif(input[k]=='}'):
-        array.append(input[k])
-        brcount+=1
-        k+=1
+        if(input[k]=='}' and k+1< len(input)):
+            if(input[k+1]=='{'):
+                raise SyntaxError("multi top levels")
+            else:
+                array.append(input[k])
+                brcount+=1
+                k+=1
+        else:
+            array.append(input[k])
+            brcount+=1
+            k+=1
+    
+
     elif(input[k]=='[' or input[k]==']' or input[k]=='='):
         array.append(input[k])
         k+=1
@@ -446,12 +458,17 @@ while(k<len(input)):
             number = number + temp[j]*(int(10)**(n-1-j))
         array.append(number)
         temp=[]
+    else:
+        raise SyntaxError("garbage")
 
 if(blcount!=brcount):
-    raise SyntaxError("expecting 'EOF' but got '}'")
+    raise Exception("expecting 'EOF' but got '}'")
 
 if(len(array)==1 and ( array[0]!='{' or  array[0]!='}'  or array[0]!='='  or array[0]!=',' ) ):
     print(array[0])
+
+elif(len(array)==7 and array[0]==array[1]==array[2]=='{' and array[6]==array[5]==array[4]=="}"):
+    print([[[array[3]]]])
 
 elif(len(array)>1):
     if(array[0]=='{' and array[1]=='}'):
