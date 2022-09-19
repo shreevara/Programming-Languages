@@ -1,4 +1,4 @@
-<<<<<<< prj1
+
 SHREEVARA ANDILA <br>
 sandila1@binghamton.edu 
 <hr>
