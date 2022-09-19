@@ -1,3 +1,4 @@
+
 SHREEVARA ANDILA <br>
 sandila1@binghamton.edu 
 <hr>
@@ -22,3 +23,6 @@ initializer<br>
 <br>
 <h4> How to run the code: </h4><br>
 $ echo '<input>' | ./desig-inits.sh | json_pp<br>
+=======
+<h3> Project1 final submitted code can be found in prj1 branch </h3>
+>>>>>>> main
