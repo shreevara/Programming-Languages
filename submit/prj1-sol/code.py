@@ -1,4 +1,5 @@
 import re
+import sys
 
 def get_val(lookahead,array):
     if lookahead == '{':
@@ -390,7 +391,7 @@ rr=0
 k=0
 flagf = False
 
-ip = input()
+ip = sys.stdin.read()
 array=[]
 temp=[]
 input=""
@@ -400,9 +401,7 @@ blcount=brcount=0
 ip.replace("\n","")
 
 while(m<len(ip)):
-    if(ip[m].isspace() and re.match("\d+",ip[m-1]) and re.match("\d+",ip[m+1]) ):
-        raise SyntaxError("multi top levels")
-    elif(ip[m].isspace()):
+    if(ip[m].isspace()):
         m+=1
     else:
         input+=ip[m]
