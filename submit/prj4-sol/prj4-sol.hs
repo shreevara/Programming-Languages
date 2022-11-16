@@ -146,7 +146,8 @@ testExpn = do
 -- Hint: pair each char in the string with its index and then select
 -- those indexes with matching char.
 charIndexes :: String -> Char -> [Int]
-charIndexes _ _ = error "TODO"
+charIndexes s c =
+  map snd $ filter (\p->fst p == c) (s `zip` [0..(length s)])
 
 testCharIndexes = do
   assertEq "charIndexes \"hello world\" 'o'"
