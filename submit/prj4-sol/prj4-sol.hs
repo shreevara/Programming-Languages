@@ -180,9 +180,9 @@ data Tree t = Leaf t
 foldTree :: (t1 -> t -> t1 -> t1) -> (t -> t1) -> Tree t -> t1
 foldTree treeFn leafFn tree =
   case tree of
-    (Leaf t) -> leafFn t
-    (Tree t1 t t2) -> 
-      treeFn (foldTree treeFn leafFn t1) t (foldTree treeFn leafFn t2)
+    (Leaf v) -> leafFn v
+    (Tree left v right) -> 
+      treeFn (foldTree treeFn leafFn left) v (foldTree treeFn leafFn right)
 
 testFoldTree = do
   assertEq "foldTree (left + v + right) (2*v)"
@@ -210,7 +210,7 @@ testFoldTree = do
 -- Restriction: May NOT use recursion.  MUST be implemented using foldTree.
 flattenTree :: Tree a -> [a]
 flattenTree tree =
-  foldTree (\t1 t t2 -> t1 ++ [t] ++ t2) (\t->[t]) tree
+  foldTree (\left v right -> left ++ [v] ++ right) (\v->[v]) tree
 
 testFlattenTree = do
   assertEq "flattenTree Tree Int"
