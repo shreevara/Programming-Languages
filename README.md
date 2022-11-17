@@ -1,4 +1,35 @@
-<h3> ###Note###<br>The project1 submitted code is in prj1 branch. <br>
-The project2 submitted code is in prj2 branch.<br>
-The project3 submitted code is in prj3 branch</h3>.
+SHREEVARA ANDILA <br>
+sandila1@binghamton.edu 
+<hr>
 
+<h3> Project 4 </h3>
+
+prj4-sol.hs
+A skeleton file which contains the specifications for the functions.
+
+Unit.hs
+This file provides a crude implementation of assertions for unit tests.
+
+The project can be run from within ghci:
+
+-- start GHC REPL
+
+$ ghci
+
+GHCi, version 8.8.4: https://www.haskell.org/ghc/  :? for help
+
+
+-- initial load of file
+
+Prelude> :l "prj4-sol.hs"
+
+[1 of 2] Compiling Unit             ( Unit.hs, interpreted )
+
+[2 of 2] Compiling Main             ( prj4-sol.hs, interpreted )
+
+Ok, two modules loaded.
+
+
+-- Running all the tests.
+
+Prelude> testAll
