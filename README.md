@@ -3,26 +3,25 @@ SHREEVARA ANDILA <br>
 sandila1@binghamton.edu 
 <hr>
 
-<h3> Project1 </h3>
+<h3> Project4 </h3>
 
-Programming Language Used: Python <br>
-<h3> Grammar: </h3><br>
-val<br>
-  : INT<br>
-  | '{' initializers '}'<br>
-  ;<br>
- initializers<br>
-  : initializer ( ',' initializer )* ','? //optional comma after last init<br>
-  | //empty<br>
-  ;<br>
-initializer<br>
-  : '[' INT '] '=' val              //simple designated initializer<br>
-  | '[' INT '...' INT ']' '=' val   //range designated initializer<br><br>
-  | val                             //positional initializer<br>
-  ;<br>
-<br>
-<h4> How to run the code: </h4><br>
-$ echo '<input>' | ./desig-inits.sh | json_pp<br>
-=======
-<h3> Project1 final submitted code can be found in prj1 branch </h3>
->>>>>>> main
+prj4-sol.hs
+A file which contains the specifications for the functions.
+
+Unit.hs
+This file provides a crude implementation of assertions for unit tests, without needing to download external dependencies.
+
+The project can be run from within ghci:
+
+-- start GHC REPL
+$ ghci
+GHCi, version 8.8.4: https://www.haskell.org/ghc/  :? for help
+
+-- initial load of file
+Prelude> :l "prj4-sol.hs"
+[1 of 2] Compiling Unit             ( Unit.hs, interpreted )
+[2 of 2] Compiling Main             ( prj4-sol.hs, interpreted )
+Ok, two modules loaded.
+
+-- Running all the tests.
+Prelude> testAll
